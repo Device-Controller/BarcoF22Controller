@@ -1,8 +1,8 @@
-package no.ntnu.vislab.barkof22.CommunicationStates;
+package no.ntnu.vislab.barkof22.communicationstates;
 
 import no.ntnu.vislab.barkof22.CommunicationContext;
 import no.ntnu.vislab.barkof22.commands.Power;
-import no.ntnu.vislab.vislabcontroller.Command;
+import no.ntnu.vislab.vislabcontroller.providers.Command;
 
 /**
  * State for sending the command currently first in queue.

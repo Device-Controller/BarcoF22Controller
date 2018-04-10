@@ -1,6 +1,7 @@
 package no.ntnu.vislab.barkof22;
 
-import no.ntnu.vislab.vislabcontroller.Command;
+
+import no.ntnu.vislab.vislabcontroller.providers.Command;
 
 /**
  * @author ThomasSTodal
