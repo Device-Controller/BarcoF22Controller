@@ -24,7 +24,6 @@ import no.ntnu.vislab.barkof22.commands.TestImage;
 import no.ntnu.vislab.barkof22.commands.ThermalStatus;
 import no.ntnu.vislab.barkof22.commands.UnitTotalTime;
 import no.ntnu.vislab.vislabcontroller.providers.Command;
-import no.ntnu.vislab.vislabcontroller.providers.Projector;
 
 /**
  * @author Kristoffer
@@ -52,6 +51,39 @@ public class BarkoF22Projector implements BarkoF22Interface {
 
     public BarkoF22Projector() {
     }
+
+    @Override
+    public String getDeviceName() {
+        return getMake() + " " + getModel();
+    }
+
+    @Override
+    public String getHostAddress() {
+        return hostAddress.toString();
+    }
+
+    @Override
+    public int getPortNumber() {
+        return portNumber;
+    }
+
+    @Override
+    public boolean setIpAddress(String ipAddress) {
+        try {
+            hostAddress = InetAddress.getByName(ipAddress);
+            System.out.println(hostAddress);
+        } catch (UnknownHostException e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void setPort(int port) {
+        portNumber = port;
+        System.out.println(portNumber);
+    }
+
 
     private CommunicationDriver setUpDriver() throws IOException {
         CommunicationDriver communicationDriver = null;
@@ -291,37 +323,6 @@ public class BarkoF22Projector implements BarkoF22Interface {
         sendAndWait(testImage);
         return testImage.getTestImage();
     }
-
-    @Override
-    public String getDeviceName() {
-        return getMake() + " " + getModel();
-    }
-
-    @Override
-    public String getHostAddress() {
-        return hostAddress.toString();
-    }
-
-    @Override
-    public int getPortNumber() {
-        return portNumber;
-    }
-
-    @Override
-    public boolean setIpAddress(String ipAddress) {
-        try {
-            hostAddress = InetAddress.getByName(ipAddress);
-        } catch (UnknownHostException e) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public void setPort(int port) {
-        portNumber = port;
-    }
-
     public synchronized boolean processCommand(Command command) {
         if (!(command instanceof BarkoF22Command)) {
             return false;
