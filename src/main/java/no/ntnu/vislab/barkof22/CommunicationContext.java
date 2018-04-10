@@ -8,9 +8,9 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
-import no.ntnu.vislab.barkof22.CommunicationStates.CommunicationState;
-import no.ntnu.vislab.barkof22.CommunicationStates.Idle;
-import no.ntnu.vislab.vislabcontroller.Command;
+import no.ntnu.vislab.barkof22.communicationstates.CommunicationState;
+import no.ntnu.vislab.barkof22.communicationstates.Idle;
+import no.ntnu.vislab.vislabcontroller.providers.Command;
 
 import static java.lang.Thread.sleep;
 

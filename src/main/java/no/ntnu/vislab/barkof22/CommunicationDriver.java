@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import no.ntnu.vislab.vislabcontroller.Command;
+import no.ntnu.vislab.vislabcontroller.providers.Command;
+
 
 public class CommunicationDriver extends AbstractRunnable {
     private Socket host;

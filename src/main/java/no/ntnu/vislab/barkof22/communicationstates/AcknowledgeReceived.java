@@ -1,4 +1,4 @@
-package no.ntnu.vislab.barkof22.CommunicationStates;
+package no.ntnu.vislab.barkof22.communicationstates;
 
 import no.ntnu.vislab.barkof22.CommunicationContext;
 

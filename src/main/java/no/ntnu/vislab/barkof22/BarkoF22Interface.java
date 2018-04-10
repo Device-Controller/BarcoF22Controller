@@ -1,9 +1,12 @@
 package no.ntnu.vislab.barkof22;
 
+
+import no.ntnu.vislab.vislabcontroller.providers.Projector;
+
 /**
  * Interface for a barko f22 projector.
  */
-public interface BarkoF22Interface {
+public interface BarkoF22Interface extends Projector {
     int getBrightness();
 
     int setBrightness(int value);

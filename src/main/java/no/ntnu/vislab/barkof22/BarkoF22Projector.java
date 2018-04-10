@@ -8,6 +8,7 @@ package no.ntnu.vislab.barkof22;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,17 +23,17 @@ import no.ntnu.vislab.barkof22.commands.PowerState;
 import no.ntnu.vislab.barkof22.commands.TestImage;
 import no.ntnu.vislab.barkof22.commands.ThermalStatus;
 import no.ntnu.vislab.barkof22.commands.UnitTotalTime;
-import no.ntnu.vislab.vislabcontroller.Command;
-import no.ntnu.vislab.vislabcontroller.Projector;
+import no.ntnu.vislab.vislabcontroller.providers.Command;
+import no.ntnu.vislab.vislabcontroller.providers.Projector;
 
 /**
  * @author Kristoffer
  */
-public class BarkoF22Projector implements BarkoF22Interface, Projector  {
-    private final String projectorName;
-    private final String id;
-    private final InetAddress hostAddress;
-    private final int portNumber;
+public class BarkoF22Projector implements BarkoF22Interface {
+    private static final String MODEL = "F22";
+    private static final String MAKE = "Barko";
+    private InetAddress hostAddress;
+    private int portNumber;
     private CommunicationDriver cd;
     private int powerState;
     private int powerSetting;
@@ -49,17 +50,7 @@ public class BarkoF22Projector implements BarkoF22Interface, Projector  {
     private int thermal;
     private int testImage;
 
-    public BarkoF22Projector(String projectorName, String id, InetAddress hostAddress, int portNumber) {
-
-        this.projectorName = projectorName;
-        this.id = id;
-        this.hostAddress = hostAddress;
-        this.portNumber = portNumber;
-    }
-
-    public BarkoF22Projector(InetAddress hostAddress, int portNumber) throws IOException {
-        this("BarkoF22", "1", hostAddress, portNumber);
-
+    public BarkoF22Projector() {
     }
 
     private CommunicationDriver setUpDriver() throws IOException {
@@ -130,6 +121,16 @@ public class BarkoF22Projector implements BarkoF22Interface, Projector  {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    @Override
+    public String getMake() {
+        return MAKE;
+    }
+
+    @Override
+    public String getModel() {
+        return MODEL;
     }
 
     /**
@@ -250,6 +251,10 @@ public class BarkoF22Projector implements BarkoF22Interface, Projector  {
     }
 
     @Override
+    public int getLampStatus(){
+        return getLampStatus(1);
+    }
+    @Override
     public int getLampStatus(int lampNum) {
         try {
             LampStatus lampStatus = new LampStatus(lampNum);
@@ -288,13 +293,8 @@ public class BarkoF22Projector implements BarkoF22Interface, Projector  {
     }
 
     @Override
-    public String getProjectorName() {
-        return projectorName;
-    }
-
-    @Override
-    public String getId() {
-        return id;
+    public String getDeviceName() {
+        return getMake() + " " + getModel();
     }
 
     @Override
@@ -305,6 +305,21 @@ public class BarkoF22Projector implements BarkoF22Interface, Projector  {
     @Override
     public int getPortNumber() {
         return portNumber;
+    }
+
+    @Override
+    public boolean setIpAddress(String ipAddress) {
+        try {
+            hostAddress = InetAddress.getByName(ipAddress);
+        } catch (UnknownHostException e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void setPort(int port) {
+        portNumber = port;
     }
 
     public synchronized boolean processCommand(Command command) {

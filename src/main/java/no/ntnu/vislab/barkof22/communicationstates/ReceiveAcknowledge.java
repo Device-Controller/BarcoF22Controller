@@ -1,9 +1,9 @@
-package no.ntnu.vislab.barkof22.CommunicationStates;
+package no.ntnu.vislab.barkof22.communicationstates;
 
 import java.io.IOException;
 
 import no.ntnu.vislab.barkof22.CommunicationContext;
-import no.ntnu.vislab.vislabcontroller.Command;
+import no.ntnu.vislab.vislabcontroller.providers.Command;
 
 /**
  * State that waits for upto 2000ms for a response.
