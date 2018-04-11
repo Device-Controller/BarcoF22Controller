@@ -74,7 +74,6 @@ public class BarkoF22Projector implements BarkoF22Interface, Projector {
     public boolean setIpAddress(String ipAddress) {
         try {
             hostAddress = InetAddress.getByName(ipAddress);
-            System.out.println(hostAddress);
         } catch (UnknownHostException e) {
             return false;
         }
@@ -84,7 +83,6 @@ public class BarkoF22Projector implements BarkoF22Interface, Projector {
     @Override
     public void setPort(int port) {
         portNumber = port;
-        System.out.println(portNumber);
     }
 
 

@@ -52,7 +52,6 @@ public class CommunicationContext {
     }
 
     public void changeState(final CommunicationState nextState) {
-        System.out.println(nextState);
         currentState = nextState;
     }
 
