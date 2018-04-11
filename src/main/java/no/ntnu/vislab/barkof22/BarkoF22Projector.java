@@ -23,12 +23,15 @@ import no.ntnu.vislab.barkof22.commands.PowerState;
 import no.ntnu.vislab.barkof22.commands.TestImage;
 import no.ntnu.vislab.barkof22.commands.ThermalStatus;
 import no.ntnu.vislab.barkof22.commands.UnitTotalTime;
+import no.ntnu.vislab.vislabcontroller.annotations.ProjectorSPI;
 import no.ntnu.vislab.vislabcontroller.providers.Command;
+import no.ntnu.vislab.vislabcontroller.providers.Projector;
 
 /**
  * @author Kristoffer
  */
-public class BarkoF22Projector implements BarkoF22Interface {
+@ProjectorSPI
+public class BarkoF22Projector implements BarkoF22Interface, Projector {
     private static final String MODEL = "F22";
     private static final String MAKE = "Barko";
     private InetAddress hostAddress;
@@ -71,7 +74,6 @@ public class BarkoF22Projector implements BarkoF22Interface {
     public boolean setIpAddress(String ipAddress) {
         try {
             hostAddress = InetAddress.getByName(ipAddress);
-            System.out.println(hostAddress);
         } catch (UnknownHostException e) {
             return false;
         }
@@ -81,7 +83,6 @@ public class BarkoF22Projector implements BarkoF22Interface {
     @Override
     public void setPort(int port) {
         portNumber = port;
-        System.out.println(portNumber);
     }
 
 
