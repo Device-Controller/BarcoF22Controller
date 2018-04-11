@@ -23,12 +23,15 @@ import no.ntnu.vislab.barkof22.commands.PowerState;
 import no.ntnu.vislab.barkof22.commands.TestImage;
 import no.ntnu.vislab.barkof22.commands.ThermalStatus;
 import no.ntnu.vislab.barkof22.commands.UnitTotalTime;
+import no.ntnu.vislab.vislabcontroller.annotations.ProjectorSPI;
 import no.ntnu.vislab.vislabcontroller.providers.Command;
+import no.ntnu.vislab.vislabcontroller.providers.Projector;
 
 /**
  * @author Kristoffer
  */
-public class BarkoF22Projector implements BarkoF22Interface {
+@ProjectorSPI
+public class BarkoF22Projector implements BarkoF22Interface, Projector {
     private static final String MODEL = "F22";
     private static final String MAKE = "Barko";
     private InetAddress hostAddress;
