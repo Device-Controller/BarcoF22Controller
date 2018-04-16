@@ -25,7 +25,13 @@ function fetchProjector(id) {
         }
     });
 }
-
+document.getElementById("muteList").onchange = function() {
+    if (this.value == 'mute') {
+        mute();
+    } else if (this.value == 'unMute') {
+        unMute();
+    }
+};
 function mute() {
     fetch('BarkoF22/mute?id=' + parseURLId(location.href)).then(response => {
         if (response.ok) {
