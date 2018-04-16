@@ -37,22 +37,23 @@ public class F22Projector implements F22Interface, Projector {
     private static final String MODEL = "F22";
     private static final String MAKE = "Barko";
     private InetAddress hostAddress;
-    private int portNumber;
+    private int portNumber = 0;
     private CommunicationDriver cd;
-    private int powerState;
-    private int powerSetting;
-    private int muteSetting;
-    private int brightness;
-    private int contrast;
-    private int runtime;
-    private int lamp1Runtime;
-    private int lamp2Runtime;
-    private int lamp1TimeRemaining;
-    private int lamp2TimeRemaining;
-    private int lamp1Status;
-    private int lamp2Status;
-    private int thermal;
-    private int testImage;
+    private int powerState = 0;
+    private int powerSetting = 0;
+    private int muteSetting = 0;
+    private int brightness = 0;
+    private int contrast = 0;
+    private int runtime = 0;
+    private int lamp1Runtime = 0;
+    private int lamp2Runtime = 0;
+    private int lamp1TimeRemaining = 0;
+    private int lamp2TimeRemaining = 0;
+    private int lamp1Status = 0;
+    private int lamp2Status = 0;
+    private int thermal = 0;
+    private int testImage = 0;
+    private Thread driver;
 
     public F22Projector() {
     }
@@ -93,7 +94,7 @@ public class F22Projector implements F22Interface, Projector {
         try {
             communicationDriver = new CommunicationDriver(new Socket(hostAddress, portNumber), new LampStatus(1), new PowerState());
             communicationDriver.setOnCommandReady(this::processCommand);
-            Thread driver = new Thread(communicationDriver);
+            driver = new Thread(communicationDriver);
             driver.start();
         } catch (BarkoF22Exception e) {
             e.printStackTrace();
@@ -205,7 +206,7 @@ public class F22Projector implements F22Interface, Projector {
      * @return the current brightness setting on the projector
      */
     @Override
-    public int getBrightness() {
+    public int fetchBrightness() {
         Brightness brightness = new Brightness();
         sendAndWait(brightness);
         return brightness.getBrightness();
@@ -229,7 +230,7 @@ public class F22Projector implements F22Interface, Projector {
     }
 
     @Override
-    public int getContrast() {
+    public int fetchContrast() {
         Contrast contrast = new Contrast();
         sendAndWait(contrast);
         return contrast.getContrast();
@@ -247,15 +248,14 @@ public class F22Projector implements F22Interface, Projector {
         return -1;
     }
 
-    @Override
-    public int getPowerState() {
+    public int fetchPowerState() {
         PowerState powerState = new PowerState();
         sendAndWait(powerState);
         return powerState.getPowerState();
     }
 
     @Override
-    public int getLampRuntime(int lampNum) {
+    public int fetchLampRuntime(int lampNum) {
         try {
             LampRuntime lampRuntime = new LampRuntime(lampNum);
             sendAndWait(lampRuntime);
@@ -279,7 +279,7 @@ public class F22Projector implements F22Interface, Projector {
     }
 
     @Override
-    public int getTotalRuntime() {
+    public int fetchTotalRuntime() {
         UnitTotalTime unitTotalTime = new UnitTotalTime();
         sendAndWait(unitTotalTime);
         return unitTotalTime.getTotalRuntime();
@@ -287,10 +287,10 @@ public class F22Projector implements F22Interface, Projector {
 
     @Override
     public int getLampStatus(){
-        return getLampStatus(1);
+        return fetchLampStatus(1);
     }
     @Override
-    public int getLampStatus(int lampNum) {
+    public int fetchLampStatus(int lampNum) {
         try {
             LampStatus lampStatus = new LampStatus(lampNum);
             sendAndWait(lampStatus);
@@ -302,7 +302,7 @@ public class F22Projector implements F22Interface, Projector {
     }
 
     @Override
-    public int getTemperature() {
+    public int fetchTemperature() {
         ThermalStatus thermalStatus = new ThermalStatus();
         sendAndWait(thermalStatus);
         return thermalStatus.getThermal();
@@ -382,59 +382,61 @@ public class F22Projector implements F22Interface, Projector {
         return false;
     }
 
-    public int getPowerStateValue() {
+
+    @Override
+    public int getPowerState(){
         return powerState;
     }
 
-    public int getPowerSettingValue() {
+    public int getPowerSetting() {
         return powerSetting;
     }
 
-    public int getMuteSettingValue() {
+    public int getMuteSetting() {
         return muteSetting;
     }
 
-    public int getBrightnessValue() {
+    public int getBrightness() {
         return brightness;
     }
 
-    public int getContrastValue() {
+    public int getContrast() {
         return contrast;
     }
 
-    public int getRuntimeValue() {
+    public int getRuntime() {
         return runtime;
     }
 
-    public int getLamp1RuntimeValue() {
+    public int getLamp1Runtime() {
         return lamp1Runtime;
     }
 
-    public int getLamp2RuntimeValue() {
+    public int getLamp2Runtime() {
         return lamp2Runtime;
     }
 
-    public int getLamp1TimeRemainingValue() {
+    public int getLamp1TimeRemaining() {
         return lamp1TimeRemaining;
     }
 
-    public int getLamp2TimeRemainingValue() {
+    public int getLamp2TimeRemaining() {
         return lamp2TimeRemaining;
     }
 
-    public int getLamp1StatusValue() {
+    public int getLamp1Status() {
         return lamp1Status;
     }
 
-    public int getLamp2StatusValue() {
+    public int getLamp2Status() {
         return lamp2Status;
     }
 
-    public int getThermalValue() {
+    public int getThermal() {
         return thermal;
     }
 
-    public int getTestImageValue() {
+    public int getTestImage() {
         return testImage;
     }
 }

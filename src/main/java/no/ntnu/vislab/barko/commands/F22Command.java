@@ -20,7 +20,7 @@ public abstract class F22Command extends Command {
     private final String FIELD;
     private final int MIN_VALUE;
     private final int MAX_VALUE;
-    private int value;
+    private int value = 0;
     private final boolean GETTER;
 
     /**
@@ -86,11 +86,14 @@ public abstract class F22Command extends Command {
     public boolean checkAck() {
         try {
             String[] ackArray = getResponse().split(" ");
+            if(ackArray.length == 3){
             value = Integer.parseInt(ackArray[2]);
             return FIELD.contains(ackArray[1]) && (value >= MIN_VALUE) && (value <= MAX_VALUE);
+            }
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException ex) {
             return false;
         }
+        return false;
     }
 
     /**

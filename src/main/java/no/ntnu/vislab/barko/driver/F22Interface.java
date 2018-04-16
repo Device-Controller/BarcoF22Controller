@@ -5,23 +5,23 @@ package no.ntnu.vislab.barko.driver;
  * Interface for a barko f22 projector.
  */
 public interface F22Interface {
-    int getBrightness();
+    int fetchBrightness();
 
     int setBrightness(int value);
 
-    int getContrast();
+    int fetchContrast();
 
     int setContrast(int value);
 
-    int getLampRuntime(int lampNum);
+    int fetchLampRuntime(int lampNum);
 
     int getLampRemaining(int lampNum);
 
-    int getTotalRuntime();
+    int fetchTotalRuntime();
 
-    int getLampStatus(int lampNum);
+    int fetchLampStatus(int lampNum);
 
-    int getTemperature();
+    int fetchTemperature();
 
     int testImageOn(int testImage);
 
