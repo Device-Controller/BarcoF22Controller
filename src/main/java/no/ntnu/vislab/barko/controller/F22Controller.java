@@ -12,11 +12,11 @@ import java.util.HashMap;
 import no.ntnu.vislab.barko.driver.F22Projector;
 import no.ntnu.vislab.vislabcontroller.dummybase.DummyBase;
 import no.ntnu.vislab.vislabcontroller.dummybase.DummyDevice;
+import no.ntnu.vislab.vislabcontroller.webcontroller.MainController;
 
 @Controller
 @RequestMapping("/BarkoF22")
-public class F22Controller {
-    private static HashMap<Integer, F22Projector> activeProjectors;
+public class F22Controller extends MainController {
 
     @RequestMapping("/mute")
     public ResponseEntity<Integer> muteImage(@RequestParam(value = "id") int id) throws IOException {
@@ -39,56 +39,37 @@ public class F22Controller {
     @RequestMapping("/lampStatus")
     public ResponseEntity<String> getLampStatus(@RequestParam(value = "id") int id, @RequestParam(value = "lampNum") int lampNum) throws IOException {
         F22Projector projector = getProjector(id);
-        return new ResponseEntity<>(projector.getLampStatus(lampNum) + "", HttpStatus.OK);
+        return new ResponseEntity<>(projector.fetchLampStatus(lampNum) + "", HttpStatus.OK);
     }
     @RequestMapping("/lampRuntime")
     public ResponseEntity<String> getLampRuntime(@RequestParam(value = "id") int id, @RequestParam(value = "lampNum") int lampNum) throws IOException {
         F22Projector projector = getProjector(id);
-        return new ResponseEntity<>(projector.getLampRuntime(lampNum) + "", HttpStatus.OK);
+        return new ResponseEntity<>(projector.fetchLampRuntime(lampNum) + "", HttpStatus.OK);
     }
     
     @RequestMapping("/getContrast")
     public ResponseEntity<Integer> getContrast(@RequestParam(value = "id") int id) throws IOException {
         F22Projector projector = getProjector(id);
-        return new ResponseEntity<>(projector.getContrast(), HttpStatus.OK);
+        return new ResponseEntity<>(projector.fetchContrast(), HttpStatus.OK);
     }
     @RequestMapping("/getBrightness")
     public ResponseEntity<Integer> getBrightness(@RequestParam(value = "id") int id) throws IOException {
         F22Projector projector = getProjector(id);
-        return new ResponseEntity<>(projector.getBrightness(), HttpStatus.OK);
+        return new ResponseEntity<>(projector.fetchBrightness(), HttpStatus.OK);
     }
     @RequestMapping("/getThermal")
     public ResponseEntity<Integer> getThermal(@RequestParam(value = "id") int id) throws IOException {
         F22Projector projector = getProjector(id);
-        return new ResponseEntity<>(projector.getTemperature(), HttpStatus.OK);
+        return new ResponseEntity<>(projector.fetchTemperature(), HttpStatus.OK);
     }
     @RequestMapping("/getProjectorRuntime")
     public ResponseEntity<Integer> getProjectorRuntime(@RequestParam(value = "id") int id) throws IOException {
         F22Projector projector = getProjector(id);
-        return new ResponseEntity<>(projector.getTotalRuntime(), HttpStatus.OK);
+        return new ResponseEntity<>(projector.fetchTotalRuntime(), HttpStatus.OK);
     }
 
-    /**
-     * Returns an active projector. If the projector is not active it starts it and adds it to a list.
-     *
-     * @param id the id of the projector
-     * @return the active projector, given by the id
-     * @throws IOException if we dont have access to the port.
-     */
-    private synchronized F22Projector getProjector(int id) throws IOException {
-        if (activeProjectors == null) {
-            activeProjectors = new HashMap<>();
-        }
-        F22Projector projector;
-        if (!activeProjectors.keySet().contains(id)) {
-            DummyDevice device = new DummyBase().getSingle(id);
-            projector = new F22Projector();
-            projector.setIpAddress(device.getIp());
-            projector.setPort(device.getPort());
-            activeProjectors.put(device.getId(), projector);
-        } else {
-            projector = activeProjectors.get(id);
-        }
-        return projector;
+    @Override
+    protected F22Projector getProjector(int id){
+        return (F22Projector) super.getProjector(id);
     }
 }

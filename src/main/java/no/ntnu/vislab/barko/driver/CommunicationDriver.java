@@ -47,17 +47,22 @@ public class CommunicationDriver extends AbstractRunnable {
 
     @Override
     public void run() {
-        while (getRunning()) {
-            try {
-                communicator.execute();
-            } catch (IOException e){
-                System.out.println(e.getMessage());
-                stopThread();
+        try {
+            while (getRunning()) {
+                try {
+                    communicator.execute();
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                    stopThread();
 
+                }
             }
+            System.out.println("stopping");
+            stopThread();
+        } catch (Exception e){
+            System.out.println("LUL EXCEPTION");
+            e.printStackTrace();
         }
-        System.out.println("stopping");
-        stopThread();
     }
     public boolean queueCommand(Command command) {
         if(getRunning()) {
