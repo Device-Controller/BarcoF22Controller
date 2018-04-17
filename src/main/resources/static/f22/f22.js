@@ -25,28 +25,15 @@ function fetchProjector(id) {
         }
     });
 }
-console.log(document.getElementById("muteList"));
 document.getElementById("muteList").onchange = function() {
-    console.log(this.value);
     if (this.value == 'mute') {
-        console.log('mute in list');
         mute();
     } else if (this.value == 'unMute') {
-        console.log('unmute in list');
         unMute();
     }
 };
-function muteology(device) {
-    console.log(device);
-    console.log(device.value);
-    if (device.value == 'mute') {
-        mute();
-    } else if (device.value == 'unMute') {
-        unMute();
-    }
-}
+
 function mute() {
-    console.log('muted');
     fetch('BarkoF22/mute?id=' + parseURLId(location.href)).then(response => {
         if (response.ok) {
             response.json().then(e => console.log(e));
@@ -55,13 +42,40 @@ function mute() {
 }
 
 function unMute() {
-    console.log('unmuted');
     fetch('BarkoF22/unMute?id=' + parseURLId(location.href)).then(response => {
         if (response.ok) {
             response.json().then(e => console.log(e));
         }
     })
 }
+
+document.getElementById("imageList").onchange = function() {
+    console.log(this.value);
+    testImage(this.value);
+}
+
+function testImage(image) {
+    fetch('BarkoF22/testImage?id=' + parseURLId(location.href) + '&image=' + image).then(response => {
+        if (response.ok) {
+            response.json().then(e => console.log(e));
+        }
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function updateData() {
     //GET CONTRAST
