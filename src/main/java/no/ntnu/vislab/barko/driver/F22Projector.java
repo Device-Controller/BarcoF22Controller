@@ -109,6 +109,7 @@ public class F22Projector implements F22Interface, Projector {
      * @param command the command to queue.
      */
     private synchronized void sendAndWait(Command command) {
+        System.out.println(command.getCmd());
         while(cd == null || !cd.queueCommand(command)){
             try {
                 cd = setUpDriver();
@@ -118,7 +119,6 @@ public class F22Projector implements F22Interface, Projector {
         }
         while (command.getResponse() == null) {
             try {
-                System.out.println(command.getCmd());
                 wait();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
