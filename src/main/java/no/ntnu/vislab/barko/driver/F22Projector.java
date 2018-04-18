@@ -25,6 +25,7 @@ import no.ntnu.vislab.barko.commands.TestImage;
 import no.ntnu.vislab.barko.commands.ThermalStatus;
 import no.ntnu.vislab.barko.commands.UnitTotalTime;
 import no.ntnu.vislab.barko.BarkoF22Exception;
+import no.ntnu.vislab.barko.controller.F22ViewController;
 import no.ntnu.vislab.vislabcontroller.annotations.ProjectorSPI;
 import no.ntnu.vislab.vislabcontroller.providers.Command;
 import no.ntnu.vislab.vislabcontroller.providers.Projector;
@@ -117,6 +118,7 @@ public class F22Projector implements F22Interface, Projector {
         }
         while (command.getResponse() == null) {
             try {
+                System.out.println(command.getCmd());
                 wait();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();

@@ -12,6 +12,7 @@ import java.util.HashMap;
 import no.ntnu.vislab.barko.driver.F22Projector;
 import no.ntnu.vislab.vislabcontroller.dummybase.DummyBase;
 import no.ntnu.vislab.vislabcontroller.dummybase.DummyDevice;
+import no.ntnu.vislab.vislabcontroller.providers.Projector;
 import no.ntnu.vislab.vislabcontroller.webcontroller.MainController;
 
 @Controller
@@ -70,6 +71,15 @@ public class F22Controller extends MainController {
 
     @Override
     protected F22Projector getProjector(int id){
-        return (F22Projector) super.getProjector(id);
+        Projector projector = super.getProjector(id);
+        return (projector instanceof F22Projector) ? (F22Projector) projector : null;
+    }
+
+    @Override
+    public String getDevicePage(int id){
+        if(getProjector(id) != null){
+            return "forward:/f22/f22.html";
+        }
+        return super.getDevicePage(id);
     }
 }
