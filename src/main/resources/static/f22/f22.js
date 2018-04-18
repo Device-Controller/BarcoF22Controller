@@ -25,6 +25,13 @@ function fetchProjector(id) {
         }
     });
 }
+document.getElementById("muteList").onchange = function() {
+    if (this.value == 'mute') {
+        mute();
+    } else if (this.value == 'unMute') {
+        unMute();
+    }
+};
 
 function mute() {
     fetch('BarkoF22/mute?id=' + parseURLId(location.href)).then(response => {
@@ -41,6 +48,34 @@ function unMute() {
         }
     })
 }
+
+document.getElementById("imageList").onchange = function() {
+    console.log(this.value);
+    testImage(this.value);
+}
+
+function testImage(image) {
+    fetch('BarkoF22/testImage?id=' + parseURLId(location.href) + '&image=' + image).then(response => {
+        if (response.ok) {
+            response.json().then(e => console.log(e));
+        }
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function updateData() {
     //GET CONTRAST

@@ -6,9 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/../images/favicon.ico" />
         <link rel="stylesheet" href="../theme.css">
-        <link rel="stylesheet" href="Projector/f22Style.css">
+        <link rel="stylesheet" href="f22Style.css">
         <script src="../templatescript.js"></script>
-        <script src="/f22/f22.js"></script>
     </head>
     <body>
         <div include-html="template.html"></div>
@@ -18,10 +17,6 @@
                 <td>Setting</td>
                 <td>Current Value</td>
                 <td>New Value</td>
-            </tr>
-            <tr>
-                <td>Internet Protocol (v4)</td>
-                <td>Får ikke vite :(</td>
             </tr>
             <tr>
                 <td>Power</td>
@@ -41,9 +36,9 @@
                 <td>Mute</td>
                 <td id="mute-state">Loading...</td>
                 <td>
-                    <select>
-                        <option>Mute</option>
-                        <option>Unmute</option>
+                    <select id="muteList">
+                        <option value="mute">Mute</option>
+                        <option value="unMute">Unmute</option>
                     </select>
                 </td>
             </tr>
@@ -51,15 +46,15 @@
                 <td>Test Image</td>
                 <td id="test-image">Loading...</td>
                 <td>
-                    <select>
-                        <option>Off</option>
-                        <option>Image 1</option>
-                        <option>Image 2</option>
-                        <option>Image 3</option>
-                        <option>Image 4</option>
-                        <option>Image 5</option>
-                        <option>Image 6</option>
-                        <option>Image 7</option>
+                    <select id="imageList">
+                        <option value="0">Off</option>
+                        <option value="1">Image 1</option>
+                        <option value="2">Image 2</option>
+                        <option value="3">Image 3</option>
+                        <option value="4">Image 4</option>
+                        <option value="5">Image 5</option>
+                        <option value="6">Image 6</option>
+                        <option value="7">Image 7</option>
                     </select>
                 </td>
             </tr>
@@ -126,4 +121,5 @@
             includeHTML();
         </script>
     </body>
+    <script src="/f22/f22.js"></script>
 </html>

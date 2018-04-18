@@ -68,6 +68,11 @@ public class F22Controller extends MainController {
         F22Projector projector = getProjector(id);
         return new ResponseEntity<>(projector.fetchTotalRuntime(), HttpStatus.OK);
     }
+    @RequestMapping("/testImage")
+    public ResponseEntity<String> testImage(@RequestParam(value = "id") int id, @RequestParam(value = "image") int image) throws IOException {
+        F22Projector projector = getProjector(id);
+        return new ResponseEntity<>(projector.testImageOn(image) + "", HttpStatus.OK);
+    }
 
     @Override
     protected F22Projector getProjector(int id){
