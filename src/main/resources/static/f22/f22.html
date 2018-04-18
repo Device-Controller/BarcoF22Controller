@@ -60,32 +60,34 @@
             </tr>
             <tr>
                 <td>Brightness</td>
-                <td id="brightness">Loading...</td>
+                <td>
+                    <input type="number" id="brightness-value" value="0" min="-100" max="100" onload="setValue(this, contrast)" style="width:50px;">
+                </td>
                 <td>
                     <div class="slider-container">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="brightness" oninput="brightnessFinder()">
-                        <span id="brightness-value">0</span>
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="brightness" oninput="brightnessFinder()" onmouseup="setBrightness(this)">
                     </div>
                     <script>
                         function brightnessFinder() {
                             let slider = document.getElementById('brightness').value;
-                            document.getElementById('brightness-value').innerHTML = slider;
+                            document.getElementById('brightness-value').value = slider;
                         }
                     </script>
                 </td>
             </tr>
             <tr>
                 <td>Contrast</td>
-                <td id="get-contrast">Loading...</td>
+                <td>
+                <input type="number" id="contrast-value" value="0" min="-100" max="100" onload="setValue(this, contrast)" style="width:50px;">
+                </td>
                 <td>
                     <div class="slider-container">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="contrast" oninput="contrastFinder()">
-                        <span id="contrast-value">0</span>
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="contrast" oninput="contrastFinder()" onmouseup="setContrast(this)">
                     </div>
                     <script>
                         function contrastFinder() {
                             let slider = document.getElementById('contrast').value;
-                            document.getElementById('contrast-value').innerHTML = slider;
+                            document.getElementById('contrast-value').value = slider;
                         }
                     </script>
                 </td>
