@@ -14,7 +14,12 @@ public class ReceiveAcknowledge implements CommunicationState {
     public void execute(final CommunicationContext context) throws IOException {
             Command command = context.getCommand();
             if(context.getReader().ready()){
-                String line = context.getReader().readLine();
+                char c;
+                StringBuilder str = new StringBuilder();
+                while(context.getReader().ready() && (c = (char) context.getReader().read()) != (char) -1){
+                    str.append(c);
+                }
+                String line = str.toString().trim();
                 command.setResponse(line);
                 if(command.checkAck()){
                     context.changeState(new AcknowledgeReceived());

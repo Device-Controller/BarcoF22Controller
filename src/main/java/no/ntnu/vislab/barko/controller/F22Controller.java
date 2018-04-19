@@ -7,17 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import no.ntnu.vislab.barko.driver.F22Projector;
-import no.ntnu.vislab.vislabcontroller.dummybase.DummyBase;
-import no.ntnu.vislab.vislabcontroller.dummybase.DummyDevice;
 import no.ntnu.vislab.vislabcontroller.providers.Projector;
-import no.ntnu.vislab.vislabcontroller.webcontroller.MainController;
+import no.ntnu.vislab.vislabcontroller.webcontroller.DeviceController;
 
 @Controller
 @RequestMapping("/BarkoF22")
-public class F22Controller extends MainController {
+public class F22Controller extends DeviceController {
 
     @RequestMapping("/mute")
     public ResponseEntity<Integer> muteImage(@RequestParam(value = "id") int id) throws IOException {
