@@ -62,6 +62,36 @@ function testImage(image) {
     })
 }
 
+document.querySelector('#contrast-value').addEventListener('keypress', function (e) {
+    var key = e.which || e.keyCode;
+    if (key === 13) {
+        setContrast(document.querySelector('#contrast-value'));
+        document.querySelector('#contrast').value = document.querySelector('#contrast-value').value;
+    }
+});
+
+function setContrast(number) {
+    fetch('BarkoF22/setContrast?id=' + parseURLId(location.href) + '&value=' + number.value).then(response => {
+        if (response.ok) {
+            console.log(number.value);
+            console.log(response);
+            response.json().then(e => document.getElementById("contrast-value").innerHTML = e);
+        }
+    });
+}
+function setBrightness(number) {
+    fetch('BarkoF22/setBrightness?id=' + parseURLId(location.href) + '&value=' + number.value).then(response => {
+        if (response.ok) {
+            console.log(number.value);
+            console.log(response);
+            response.json().then(e => document.getElementById("brightness-value").innerHTML = e);
+        }
+    });
+}
+function setValue(element1, element2) {
+    element1.value = document.getElementById(element2).value;
+}
+
 
 
 
@@ -81,7 +111,10 @@ function updateData() {
     //GET CONTRAST
     fetch('BarkoF22/getContrast?id=' + parseURLId(location.href)).then(response => {
         if (response.ok) {
-            response.json().then(e => document.getElementById("get-contrast").innerHTML = e);
+            response.json().then(e => {
+                document.getElementById("contrast").value = e;
+                document.getElementById("contrast-value").value = e;
+            });
         }
     });
 
@@ -95,7 +128,10 @@ function updateData() {
 //GET BRIGHTNESS
     fetch('BarkoF22/getBrightness?id=' + parseURLId(location.href)).then(response => {
         if (response.ok) {
-            response.json().then(e => document.getElementById("brightness").innerHTML = e);
+            response.json().then(e => {
+                document.getElementById("brightness").value = e;
+                document.getElementById("brightness-value").value = e;
+            });
         }
     });
 

@@ -70,6 +70,16 @@ public class F22Controller extends DeviceController {
         F22Projector projector = getProjector(id);
         return new ResponseEntity<>(projector.testImageOn(image) + "", HttpStatus.OK);
     }
+    @RequestMapping("/setContrast")
+    public ResponseEntity<String> setContrast(@RequestParam(value = "id") int id, @RequestParam(value = "value") int value) throws IOException {
+        F22Projector projector = getProjector(id);
+        return new ResponseEntity<>(projector.setContrast(value) + "", HttpStatus.OK);
+    }
+    @RequestMapping("/setBrightness")
+    public ResponseEntity<String> setBrightness(@RequestParam(value = "id") int id, @RequestParam(value = "value") int value) throws IOException {
+        F22Projector projector = getProjector(id);
+        return new ResponseEntity<>(projector.setBrightness(value) + "", HttpStatus.OK);
+    }
 
     @Override
     protected F22Projector getProjector(int id){

@@ -9,13 +9,9 @@ and open the template in the editor.
 */
 
 body {
-    color: white;
 }
 td {
     border: solid 2px #ff3311;
-}
-image {
-    display: block;
 }
 
 
@@ -23,4 +19,5 @@ image {
         font-size: 16px;
     font-weight:  700;
 }
+
 
