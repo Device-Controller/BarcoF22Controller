@@ -19,6 +19,11 @@ public class CommunicationDriver extends AbstractRunnable {
     public interface OnCommandReady{
         void onCommandReady(Command command);
     }
+
+    public interface OnConnectionIssue{
+        void onIssue();
+    }
+    private OnConnectionIssue issueCallback;
     private OnCommandReady listener;
 
     public CommunicationDriver(Socket host, List<Command> idleCommands) throws IOException {
@@ -44,6 +49,9 @@ public class CommunicationDriver extends AbstractRunnable {
     public void setOnCommandReady(OnCommandReady listener) {
         this.listener = listener;
     }
+    public void setOnIssueCallback(OnConnectionIssue callback){
+        this.issueCallback = callback;
+    }
 
     @Override
     public void run() {
@@ -57,7 +65,6 @@ public class CommunicationDriver extends AbstractRunnable {
 
                 }
             }
-            System.out.println("stopping");
             stopThread();
         } catch (Exception e){
             System.out.println("LUL EXCEPTION");
@@ -69,5 +76,13 @@ public class CommunicationDriver extends AbstractRunnable {
             outgoingBuffer.add(command);
         }
         return getRunning();
+    }
+
+    @Override
+    public boolean stopThread(){
+        if(issueCallback != null){
+            issueCallback.onIssue();
+        }
+        return super.stopThread();
     }
 }

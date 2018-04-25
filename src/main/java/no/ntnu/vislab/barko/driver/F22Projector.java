@@ -40,7 +40,7 @@ public class F22Projector implements F22Interface, Projector {
     private InetAddress hostAddress;
     private int portNumber = 0;
     private CommunicationDriver cd;
-    private int powerState = 0;
+    private int powerState = -1;
     private int powerSetting = 0;
     private int muteSetting = 0;
     private int brightness = 0;
@@ -95,12 +95,17 @@ public class F22Projector implements F22Interface, Projector {
         try {
             communicationDriver = new CommunicationDriver(new Socket(hostAddress, portNumber), new LampStatus(1), new PowerState());
             communicationDriver.setOnCommandReady(this::processCommand);
+            communicationDriver.setOnIssueCallback(this::handleError);
             driver = new Thread(communicationDriver);
             driver.start();
         } catch (BarkoF22Exception e) {
             e.printStackTrace();
         }
         return communicationDriver;
+    }
+
+    private void handleError() {
+        powerState = -1;
     }
 
     /**
