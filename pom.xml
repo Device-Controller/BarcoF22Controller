@@ -21,6 +21,12 @@
     </build>
     <dependencies>
         <dependency>
+            <groupId>vislab.no.ntnu</groupId>
+            <artifactId>Vislab-Devices</artifactId>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/Vislab-Devices-1.0-SNAPSHOT.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>4.3.14.RELEASE</version>
