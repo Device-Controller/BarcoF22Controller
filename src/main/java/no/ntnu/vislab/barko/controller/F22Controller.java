@@ -1,5 +1,6 @@
 package no.ntnu.vislab.barko.controller;
 
+import no.ntnu.vislab.vislabcontroller.webcontroller.DeviceManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -10,11 +11,10 @@ import java.io.IOException;
 
 import no.ntnu.vislab.barko.driver.F22Projector;
 import no.ntnu.vislab.vislabcontroller.providers.Projector;
-import no.ntnu.vislab.vislabcontroller.webcontroller.DeviceController;
 
 @Controller
 @RequestMapping("/BarkoF22")
-public class F22Controller extends DeviceController {
+public class F22Controller extends DeviceManager {
 
     @RequestMapping("/mute")
     public ResponseEntity<Integer> muteImage(@RequestParam(value = "id") int id) throws IOException {
