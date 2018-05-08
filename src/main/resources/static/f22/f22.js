@@ -17,14 +17,6 @@ function parseId(id) {
     return id.slice(startIndex, endIndex - 1);
 }
 
-function fetchProjector(id) {
-    fetch('controller/getProjector?id=' + id).then(response => {
-        if (response.ok) {
-            this.id = id;
-            response.json().then(p => console.log(p));
-        }
-    });
-}
 document.getElementById("muteList").onchange = function() {
     if (this.value == 'mute') {
         mute();
@@ -108,7 +100,16 @@ function setValue(element1, element2) {
 
 
 function updateData() {
+    //GET DEVICE
+        fetch('controller/getProjector?id=' + parseURLId(location.href)).then(response => {
+            console.log(response);
+            if (response.ok) {
+                console.log(response);
+                response.json().then(p => console.log(p));
+            }
+        });
     //GET CONTRAST
+
     fetch('BarkoF22/getContrast?id=' + parseURLId(location.href)).then(response => {
         if (response.ok) {
             response.json().then(e => {

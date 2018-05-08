@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>BarkoF22 Projector</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="shortcut icon" href="/../images/favicon.ico" />
-        <link rel="stylesheet" href="../theme.css">
-        <link rel="stylesheet" href="f22Style.css">
-        <script src="../templatescript.js"></script>
-    </head>
-    <body>
-        <div include-html="template.html"></div>
-        <table>
-            <image src="Images/projector-icon.png" alt="projector image">
+<head>
+    <title>BarkoF22 Projector</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/../images/favicon.ico"/>
+    <link rel="stylesheet" href="../theme.css">
+    <link rel="stylesheet" href="../f22/f22Style.css">
+    <script src="../templatescript.js"></script>
+</head>
+<body>
+<div include-html="template.html"></div>
+<div class="table-container">
+    <table class="display-table">
+        <image src="Images/projector_icon_simple.png" alt="projector image">
             <tr class="header-row">
                 <td>Setting</td>
                 <td>Current Value</td>
@@ -61,11 +62,13 @@
             <tr>
                 <td>Brightness</td>
                 <td>
-                    <input type="number" id="brightness-value" value="0" min="-100" max="100" onload="setValue(this, brightness)" style="width:50px;">
+                    <input type="number" id="brightness-value" value="0" min="-100" max="100"
+                           onload="setValue(this, brightness)" style="width:50px;">
                 </td>
                 <td>
                     <div class="slider-container">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="brightness" oninput="brightnessFinder()" onmouseup="setBrightness(this)">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="brightness"
+                               oninput="brightnessFinder()" onmouseup="setBrightness(this)">
                     </div>
                     <script>
                         function brightnessFinder() {
@@ -78,11 +81,13 @@
             <tr>
                 <td>Contrast</td>
                 <td>
-                <input type="number" id="contrast-value" value="0" min="-100" max="100" onload="setValue(this, contrast)" style="width:50px;">
+                    <input type="number" id="contrast-value" value="0" min="-100" max="100"
+                           onload="setValue(this, contrast)" style="width:50px;">
                 </td>
                 <td>
                     <div class="slider-container">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="contrast" oninput="contrastFinder()" onmouseup="setContrast(this)">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="contrast"
+                               oninput="contrastFinder()" onmouseup="setContrast(this)">
                     </div>
                     <script>
                         function contrastFinder() {
@@ -116,12 +121,11 @@
                 <td>Lamp 2 Status</td>
                 <td id="lamp2-status">Loading...</td>
             </tr>
-        </table>
-        <button onclick="mute()">Mute</button>
-        <button onclick="unMute()">UnMute</button>
-        <script>
-            includeHTML();
-        </script>
-    </body>
-    <script src="/f22/f22.js"></script>
+    </table>
+</div>
+<script>
+    includeHTML();
+</script>
+</body>
+<script src="/f22/f22.js"></script>
 </html>
