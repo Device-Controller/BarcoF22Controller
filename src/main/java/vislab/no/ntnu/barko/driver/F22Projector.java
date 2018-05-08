@@ -88,6 +88,16 @@ public class F22Projector implements F22Interface, Projector {
         portNumber = port;
     }
 
+    @Override
+    public boolean initialize() {
+        try{
+            cd = setUpDriver();
+        } catch (IOException e){
+            return false;
+        }
+        return cd != null;
+    }
+
 
     private CommunicationDriver setUpDriver() throws IOException {
         CommunicationDriver communicationDriver = null;
@@ -98,7 +108,7 @@ public class F22Projector implements F22Interface, Projector {
             driver = new Thread(communicationDriver);
             driver.start();
         } catch (BarkoF22Exception e) {
-            e.printStackTrace();
+            return null;
         }
         return communicationDriver;
     }
@@ -160,9 +170,8 @@ public class F22Projector implements F22Interface, Projector {
             sendAndWait(power);
             return power.getPowerSetting();
         } catch (BarkoF22Exception e) {
-            e.printStackTrace();
+            return -1;
         }
-        return -1;
     }
 
     @Override
@@ -186,9 +195,8 @@ public class F22Projector implements F22Interface, Projector {
             sendAndWait(mute);
             return mute.getMuteSetting();
         } catch (BarkoF22Exception e) {
-            e.printStackTrace();
+            return -1;
         }
-        return -1;
     }
 
     /**
@@ -202,9 +210,8 @@ public class F22Projector implements F22Interface, Projector {
             sendAndWait(mute);
             return mute.getMuteSetting();
         } catch (BarkoF22Exception e) {
-            e.printStackTrace();
+            return -1;
         }
-        return -1;
     }
 
     /**
@@ -230,9 +237,8 @@ public class F22Projector implements F22Interface, Projector {
             sendAndWait(brightness);
             return brightness.getBrightness();
         } catch (BarkoF22Exception e) {
-            e.printStackTrace();
+            return -1;
         }
-        return -1;
     }
 
     @Override
@@ -249,9 +255,8 @@ public class F22Projector implements F22Interface, Projector {
             sendAndWait(contrast);
             return contrast.getContrast();
         } catch (BarkoF22Exception e) {
-            e.printStackTrace();
+            return -1;
         }
-        return -1;
     }
 
     public int fetchPowerState() {
@@ -267,9 +272,8 @@ public class F22Projector implements F22Interface, Projector {
             sendAndWait(lampRuntime);
             return lampRuntime.getLampRuntime();
         } catch (BarkoF22Exception e) {
-            e.printStackTrace();
+            return -1;
         }
-        return -1;
     }
 
     @Override
@@ -279,9 +283,8 @@ public class F22Projector implements F22Interface, Projector {
             sendAndWait(lampTimeRemaining);
             return lampTimeRemaining.getLampTimeRemaining();
         } catch (BarkoF22Exception e) {
-            e.printStackTrace();
+            return -1;
         }
-        return -1;
     }
 
     @Override
@@ -302,9 +305,8 @@ public class F22Projector implements F22Interface, Projector {
             sendAndWait(lampStatus);
             return lampStatus.getLampStatus();
         } catch (BarkoF22Exception e) {
-            e.printStackTrace();
+            return -1;
         }
-        return -1;
     }
 
     @Override
@@ -321,9 +323,8 @@ public class F22Projector implements F22Interface, Projector {
             sendAndWait(testImage);
             return testImage.getTestImage();
         } catch (BarkoF22Exception e) {
-            e.printStackTrace();
+            return -1;
         }
-        return -1;
     }
 
     @Override

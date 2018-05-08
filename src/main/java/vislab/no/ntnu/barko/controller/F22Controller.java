@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import vislab.no.ntnu.barko.driver.F22Projector;
 import vislab.no.ntnu.DeviceManager;
+import vislab.no.ntnu.providers.Device;
 import vislab.no.ntnu.providers.Projector;
 
 
@@ -90,8 +91,8 @@ public class F22Controller extends DeviceManager {
     }
 
     protected F22Projector getProjector(int id) {
-        Projector projector = (Projector) getActiveDevices().get(id);
-        return (projector instanceof F22Projector) ? (F22Projector) projector : null;
+        Device device = getActiveDevices().get(id);
+        return (device instanceof F22Projector) ? (F22Projector) device : null;
     }
 
     @Override
