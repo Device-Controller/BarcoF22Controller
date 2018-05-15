@@ -124,14 +124,15 @@ public class F22Projector implements F22Interface, Projector {
      */
     private synchronized void sendAndWait(Command command) {
         System.out.println(command.getCmd());
-        while(cd == null || !cd.queueCommand(command)){
+        boolean error = false;
+        while((cd == null || !cd.queueCommand(command)) && !error){
             try {
                 cd = setUpDriver();
             } catch (IOException e) {
-                e.printStackTrace();
+                error = true;
             }
         }
-        while (command.getResponse() == null) {
+        while (command.getResponse() == null && !error) {
             try {
                 wait();
             } catch (InterruptedException e) {
