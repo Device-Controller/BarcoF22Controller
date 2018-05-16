@@ -11,11 +11,10 @@ import java.io.IOException;
 import vislab.no.ntnu.barko.driver.F22Projector;
 import vislab.no.ntnu.DeviceManager;
 import vislab.no.ntnu.providers.Device;
-import vislab.no.ntnu.providers.Projector;
 
 
 @Controller
-@RequestMapping("/BarkoF22")
+@RequestMapping("/api/BarkoF22")
 public class F22Controller extends DeviceManager {
 
     @RequestMapping("/mute")
