@@ -54,6 +54,7 @@ public class F22Projector implements F22Interface, Projector {
     private int thermal = 0;
     private int testImage = 0;
     private Thread driver;
+    private Socket socket;
 
     public F22Projector() {
     }
@@ -99,10 +100,16 @@ public class F22Projector implements F22Interface, Projector {
     }
 
 
+    /**
+     * Sets up the communcation driver to be ready for use and returns it.
+     * @return A ready to use CommunicationDriver.
+     * @throws IOException When the connection cant be made.
+     */
     private CommunicationDriver setUpDriver() throws IOException {
         CommunicationDriver communicationDriver = null;
         try {
-            communicationDriver = new CommunicationDriver(new Socket(hostAddress, portNumber), new LampStatus(1), new PowerState());
+            socket = new Socket(hostAddress, portNumber);
+            communicationDriver = new CommunicationDriver(socket, new LampStatus(1), new PowerState());
             communicationDriver.setOnCommandReady(this::processCommand);
             communicationDriver.setOnIssueCallback(this::handleError);
             driver = new Thread(communicationDriver);
@@ -113,6 +120,9 @@ public class F22Projector implements F22Interface, Projector {
         return communicationDriver;
     }
 
+    /**
+     * Handles errors that are returned up through the error callback.
+     */
     private void handleError() {
         powerState = -1;
     }
@@ -123,13 +133,19 @@ public class F22Projector implements F22Interface, Projector {
      * @param command the command to queue.
      */
     private synchronized void sendAndWait(Command command) {
-        System.out.println(command.getCmd());
         boolean error = false;
         while((cd == null || !cd.queueCommand(command)) && !error){
             try {
                 cd = setUpDriver();
             } catch (IOException e) {
                 error = true;
+                powerState = -1;
+                try{
+                    socket.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                e.printStackTrace();
             }
         }
         while (command.getResponse() == null && !error) {
@@ -175,11 +191,19 @@ public class F22Projector implements F22Interface, Projector {
         }
     }
 
+    /**
+     * Returns The manufacturer of the device.
+     * @return The manufacturer of the device.
+     */
     @Override
     public String getMake() {
         return MAKE;
     }
 
+    /**
+     * Returns the device model.
+     * @return the device model.
+     */
     @Override
     public String getModel() {
         return MODEL;

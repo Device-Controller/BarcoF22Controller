@@ -37,8 +37,6 @@ public class CommunicationDriver extends AbstractRunnable {
     private void handleCommand(Command command) {
         if(listener != null){
             listener.onCommandReady(command);
-        } else {
-            System.err.println("Listener was null, command not handled");
         }
     }
 
@@ -60,14 +58,12 @@ public class CommunicationDriver extends AbstractRunnable {
                 try {
                     communicator.execute();
                 } catch (IOException e) {
-                    System.out.println(e.getMessage());
                     stopThread();
 
                 }
             }
             stopThread();
         } catch (Exception e){
-            System.out.println("LUL EXCEPTION");
             e.printStackTrace();
         }
     }
