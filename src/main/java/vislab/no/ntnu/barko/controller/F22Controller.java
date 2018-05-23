@@ -17,6 +17,17 @@ import vislab.no.ntnu.providers.Device;
 @RequestMapping("/api/BarkoF22")
 public class F22Controller extends DeviceManager {
 
+    @RequestMapping("/getMute")
+    public ResponseEntity<Integer> getMute(@RequestParam(value = "id") int id) throws IOException {
+        F22Projector projector = getProjector(id);
+        return new ResponseEntity<>(projector.getMuteSetting(), HttpStatus.OK);
+    }
+    @RequestMapping("/getPower")
+    public ResponseEntity<Integer> getPower(@RequestParam(value = "id") int id) throws IOException {
+        F22Projector projector = getProjector(id);
+        return new ResponseEntity<>(projector.getPowerSetting(), HttpStatus.OK);
+    }
+
     @RequestMapping("/mute")
     public ResponseEntity<Integer> muteImage(@RequestParam(value = "id") int id) throws IOException {
         F22Projector projector = getProjector(id);
@@ -69,6 +80,12 @@ public class F22Controller extends DeviceManager {
     public ResponseEntity<Integer> getProjectorRuntime(@RequestParam(value = "id") int id) throws IOException {
         F22Projector projector = getProjector(id);
         return new ResponseEntity<>(projector.fetchTotalRuntime(), HttpStatus.OK);
+    }
+
+    @RequestMapping("/getTestImage")
+    public ResponseEntity<Integer> getTestImage(@RequestParam(value = "id") int id) throws IOException {
+        F22Projector projector = getProjector(id);
+        return new ResponseEntity<>(projector.getTestImage(), HttpStatus.OK);
     }
 
     @RequestMapping("/testImage")

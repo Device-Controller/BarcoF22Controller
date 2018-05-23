@@ -11,9 +11,12 @@
 </head>
 <body>
 <div include-html="template.html"></div>
+<script>
+    includeHTML();
+</script>
 <div class="table-container">
     <table class="display-table">
-        <image src="Images/projector_icon_simple.png" alt="projector image">
+        <image src="Images/projector.png" alt="projector image">
             <tr class="header-row">
                 <td>Setting</td>
                 <td>Current Value</td>
@@ -21,11 +24,11 @@
             </tr>
             <tr>
                 <td>Power</td>
-                <td id="power-setting">Loading...</td>
+                <td id="power-state">Loading...</td>
                 <td>
-                    <select>
-                        <option>On</option>
-                        <option>Off</option>
+                    <select id="power-list">
+                        <option value="On">On</option>
+                        <option value="Off">Off</option>
                     </select>
                 </td>
             </tr>
@@ -110,22 +113,11 @@
                 <td id="lamp1-runtime">Loading...</td>
             </tr>
             <tr>
-                <td>Lamp 2 Runtime</td>
-                <td id="lamp2-runtime">Loading...</td>
-            </tr>
-            <tr>
                 <td>Lamp 1 Status</td>
                 <td id="lamp1-status">Loading...</td>
             </tr>
-            <tr>
-                <td>Lamp 2 Status</td>
-                <td id="lamp2-status">Loading...</td>
-            </tr>
     </table>
 </div>
-<script>
-    includeHTML();
-</script>
 </body>
 <script src="/f22/f22.js"></script>
 </html>
