@@ -1,5 +1,7 @@
 package vislab.no.ntnu.barko.communicationstates;
 
+import java.io.IOException;
+
 import vislab.no.ntnu.barko.driver.CommunicationContext;
 
 /**
@@ -11,6 +13,6 @@ public class SendFailed implements CommunicationState {
     public void execute(CommunicationContext context) {
         context.getListener().onAcknowledge(context.getAndRemove());
         context.resetSendAttempts();
-        context.changeState(new Wait());
+        context.changeState(new Wait(new ClearInputStream()));
     }
 }

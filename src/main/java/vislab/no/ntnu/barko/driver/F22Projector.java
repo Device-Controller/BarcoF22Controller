@@ -110,7 +110,7 @@ public class F22Projector implements F22Interface, Projector {
         try {
             socket = new Socket(hostAddress, portNumber);
             communicationDriver = new CommunicationDriver(socket, new LampStatus(1), new PowerState());
-            communicationDriver.setOnCommandReady(this::processCommand);
+            communicationDriver.setOnCommandReady(this::handleCommand);
             communicationDriver.setOnIssueCallback(this::handleError);
             driver = new Thread(communicationDriver);
             driver.start();
@@ -118,6 +118,11 @@ public class F22Projector implements F22Interface, Projector {
             return null;
         }
         return communicationDriver;
+    }
+
+    private synchronized void handleCommand(Command command) {
+        processCommand(command);
+        notifyAll();
     }
 
     /**
@@ -132,7 +137,7 @@ public class F22Projector implements F22Interface, Projector {
      *
      * @param command the command to queue.
      */
-    private synchronized void sendAndWait(Command command) {
+    private synchronized void sendAndWait(F22Command command) {
         boolean error = false;
         while((cd == null || !cd.queueCommand(command)) && !error){
             try {
@@ -364,7 +369,6 @@ public class F22Projector implements F22Interface, Projector {
         }
         try {
             F22Command f22Command = (F22Command) command;
-            notifyAll();
             if (f22Command.getCmd().split(" ")[0].equals(new Contrast().getCmd())) {
                 contrast = ((Contrast) f22Command).getContrast();
                 return true;

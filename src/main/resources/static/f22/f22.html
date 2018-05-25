@@ -65,12 +65,12 @@
             <tr>
                 <td>Brightness</td>
                 <td>
-                    <input type="number" id="brightness-value" value="0" min="-100" max="100"
+                    <input type="number" id="brightness-value" value="0" min="0" max="100"
                            onload="setValue(this, brightness)" style="width:50px;">
                 </td>
                 <td>
                     <div class="slider-container">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="brightness"
+                        <input type="range" min="0" max="100" value="0" class="slider" id="brightness"
                                oninput="brightnessFinder()" onmouseup="setBrightness(this)">
                     </div>
                     <script>
@@ -84,12 +84,12 @@
             <tr>
                 <td>Contrast</td>
                 <td>
-                    <input type="number" id="contrast-value" value="0" min="-100" max="100"
+                    <input type="number" id="contrast-value" value="0" min="0" max="100"
                            onload="setValue(this, contrast)" style="width:50px;">
                 </td>
                 <td>
                     <div class="slider-container">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="contrast"
+                        <input type="range" min="0" max="100" value="0" class="slider" id="contrast"
                                oninput="contrastFinder()" onmouseup="setContrast(this)">
                     </div>
                     <script>

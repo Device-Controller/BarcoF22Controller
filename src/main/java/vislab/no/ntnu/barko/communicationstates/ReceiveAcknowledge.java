@@ -2,8 +2,8 @@ package vislab.no.ntnu.barko.communicationstates;
 
 import java.io.IOException;
 
+import vislab.no.ntnu.barko.commands.F22Command;
 import vislab.no.ntnu.barko.driver.CommunicationContext;
-import vislab.no.ntnu.providers.Command;
 
 /**
  * State that waits for upto 2000ms for a response.
@@ -12,7 +12,7 @@ public class ReceiveAcknowledge implements CommunicationState {
     private long timeout = 2000;
     @Override
     public void execute(final CommunicationContext context) throws IOException {
-            Command command = context.getCommand();
+        F22Command command = context.getCommand();
             if(context.getReader().ready()){
                 char c;
                 StringBuilder str = new StringBuilder();
@@ -23,7 +23,9 @@ public class ReceiveAcknowledge implements CommunicationState {
                 command.setResponse(line);
                 if(command.checkAck()){
                     context.changeState(new AcknowledgeReceived());
-                } else {
+                } else if(command.receivedError()){
+                    context.changeState(new Unavailable());
+                }else {
                     context.changeState(new InvalidAcknowledge());
                 }
             } else if(context.hasTimerPassed(timeout)){

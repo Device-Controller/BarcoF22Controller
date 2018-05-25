@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import vislab.no.ntnu.barko.Timer;
+import vislab.no.ntnu.barko.commands.F22Command;
 import vislab.no.ntnu.barko.communicationstates.CommunicationState;
 import vislab.no.ntnu.barko.communicationstates.Idle;
 import vislab.no.ntnu.providers.Command;
@@ -25,14 +26,14 @@ public class CommunicationContext {
     private long waitTime = 500;
 
     public interface OnAcknowledge {
-        void onAcknowledge(Command received);
+        void onAcknowledge(F22Command received);
     }
 
     private OnAcknowledge listener;
     private final Timer timer;
     private int index = 0;
-    private final List<Command> outgoingBuffer;
-    private final List<Command> idleBuffer;
+    private final List<F22Command> outgoingBuffer;
+    private final List<F22Command> idleBuffer;
     private long sentCount = 0;
     private int sendAttempts = 0;
     private BufferedReader reader;
@@ -40,7 +41,7 @@ public class CommunicationContext {
     private OutputStream outputStream;
     private InputStream inputStream;
 
-    public CommunicationContext(OutputStream outputStream, InputStream inputStream, List<Command> outgoingBuffer, List<Command> idleBuffer) {
+    public CommunicationContext(OutputStream outputStream, InputStream inputStream, List<F22Command> outgoingBuffer, List<F22Command> idleBuffer) {
         this.outgoingBuffer = outgoingBuffer;
         this.idleBuffer = idleBuffer;
         this.timer = new Timer();
@@ -166,7 +167,7 @@ public class CommunicationContext {
      *
      * @return the command currently in queue, or null if no commands are queued.
      */
-    public Command getCommand() {
+    public F22Command getCommand() {
         if (!outgoingBuffer.isEmpty()) {
             return outgoingBuffer.get(0);
         }
@@ -187,8 +188,8 @@ public class CommunicationContext {
      *
      * @return an idle command from the idle commands list.
      */
-    public Command getIdleCommand() {
-        Command idleCommand = idleBuffer.get(index);
+    public F22Command getIdleCommand() {
+        F22Command idleCommand = idleBuffer.get(index);
         index = (index + 1) % idleBuffer.size();
         return idleCommand;
     }
@@ -207,7 +208,7 @@ public class CommunicationContext {
      *
      * @return the currently queued command and removes it from the list.
      */
-    public Command getAndRemove() {
+    public F22Command getAndRemove() {
         return outgoingBuffer.remove(0);
     }
 
@@ -217,7 +218,7 @@ public class CommunicationContext {
      * @param command the command to add to the outgoing buffer.
      * @return true if adding was successful.
      */
-    public boolean addCommand(Command command) {
+    public boolean addCommand(F22Command command) {
         return outgoingBuffer.add(command);
     }
 

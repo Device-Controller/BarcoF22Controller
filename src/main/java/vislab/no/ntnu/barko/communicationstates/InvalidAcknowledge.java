@@ -14,18 +14,10 @@ import vislab.no.ntnu.barko.driver.CommunicationContext;
 public class InvalidAcknowledge implements CommunicationState {
     @Override
     public void execute(CommunicationContext context) {
-        try {
-            while (context.getReader().ready()) {
-                context.getReader().read(); //Clear the inputstream, when an invalid response is recieved it could mean that an older command was sent twice, but the response was delayed causing data to be left in the stream.
-
-            }
-            if (context.getSendAttempts() < 3) {
-                context.changeState(new Wait());
-            } else {
-                context.changeState(new SendFailed());
-            }
-        } catch (IOException e) {
-            Logger.getLogger(InvalidAcknowledge.class.getName()).log(Level.SEVERE,  e.getMessage(), e);
+        if (context.getSendAttempts() < 3) {
+            context.changeState(new Wait());
+        } else {
+            context.changeState(new SendFailed());
         }
     }
 }

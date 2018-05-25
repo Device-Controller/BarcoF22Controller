@@ -9,6 +9,7 @@ public class AcknowledgeReceived implements CommunicationState {
     @Override
     public void execute(CommunicationContext context) {
         context.getListener().onAcknowledge(context.getAndRemove());
+        context.resetSendAttempts();
         context.changeState(new Wait());
     }
 }

@@ -7,17 +7,18 @@ import java.util.Arrays;
 import java.util.List;
 
 import vislab.no.ntnu.barko.AbstractRunnable;
+import vislab.no.ntnu.barko.commands.F22Command;
 import vislab.no.ntnu.providers.Command;
 
 
 public class CommunicationDriver extends AbstractRunnable {
     private Socket host;
-    private ArrayList<Command> idleCommands;
-    private ArrayList<Command> outgoingBuffer;
+    private ArrayList<F22Command> idleCommands;
+    private ArrayList<F22Command> outgoingBuffer;
     private final CommunicationContext communicator;
 
     public interface OnCommandReady{
-        void onCommandReady(Command command);
+        void onCommandReady(F22Command command);
     }
 
     public interface OnConnectionIssue{
@@ -26,7 +27,7 @@ public class CommunicationDriver extends AbstractRunnable {
     private OnConnectionIssue issueCallback;
     private OnCommandReady listener;
 
-    public CommunicationDriver(Socket host, List<Command> idleCommands) throws IOException {
+    public CommunicationDriver(Socket host, List<F22Command> idleCommands) throws IOException {
         this.host = host;
         this.idleCommands = new ArrayList<>(idleCommands);
         this.outgoingBuffer = new ArrayList<>();
@@ -34,13 +35,13 @@ public class CommunicationDriver extends AbstractRunnable {
         this.communicator.setOnAcknowledgeReceivedListener(this::handleCommand);
     }
 
-    private void handleCommand(Command command) {
+    private void handleCommand(F22Command command) {
         if(listener != null){
             listener.onCommandReady(command);
         }
     }
 
-    public CommunicationDriver(Socket host, Command... commands) throws IOException {
+    public CommunicationDriver(Socket host, F22Command... commands) throws IOException {
         this(host, Arrays.asList(commands));
     }
 
@@ -67,7 +68,7 @@ public class CommunicationDriver extends AbstractRunnable {
             e.printStackTrace();
         }
     }
-    public boolean queueCommand(Command command) {
+    public boolean queueCommand(F22Command command) {
         if(getRunning()) {
             outgoingBuffer.add(command);
         }

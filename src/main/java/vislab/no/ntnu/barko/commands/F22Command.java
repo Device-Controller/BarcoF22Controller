@@ -20,7 +20,7 @@ public abstract class F22Command extends Command {
     private final String FIELD;
     private final int MIN_VALUE;
     private final int MAX_VALUE;
-    private int value = 0;
+    private int value = -1;
     private final boolean GETTER;
 
     /**
@@ -86,12 +86,33 @@ public abstract class F22Command extends Command {
     public boolean checkAck() {
         try {
             String[] ackArray = getResponse().split(" ");
-            if(ackArray.length == 3){
+            if(ackArray.length == 3 && FIELD.contains(ackArray[1])){
             value = Integer.parseInt(ackArray[2]);
-            return FIELD.contains(ackArray[1]) && (value >= MIN_VALUE) && (value <= MAX_VALUE);
+            return  (value >= MIN_VALUE) && (value <= MAX_VALUE);
             }
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException ex) {
             return false;
+        }
+        return false;
+    }
+
+    public boolean receivedError(){
+        if(checkAck()){
+            return false;
+        }
+        if (getResponse() == null && getResponse().isEmpty()){
+            return false;
+        }
+        String[] str = getResponse().split(" ");
+        if(str.length < 3){
+            return false;
+        }
+        if(str[2].startsWith("!")){
+            try {
+                return Integer.parseInt(getResponse().substring(1,7)) == 2;
+            } catch (NumberFormatException e){
+                return false;
+            }
         }
         return false;
     }
