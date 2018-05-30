@@ -14,7 +14,7 @@ import vislab.no.ntnu.providers.Device;
 
 
 @Controller
-@RequestMapping("/api/BarkoF22")
+@RequestMapping("/api/BarcoF22")
 public class F22Controller extends DeviceManager {
 
     @RequestMapping("/getMute")

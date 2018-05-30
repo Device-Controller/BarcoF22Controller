@@ -92,6 +92,9 @@ public class F22Projector implements F22Interface, Projector {
     @Override
     public boolean initialize() {
         try{
+            if(cd != null){
+                cd.stopThread();
+            }
             cd = setUpDriver();
         } catch (IOException e){
             return false;

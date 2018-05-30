@@ -26,7 +26,7 @@ document.getElementById("muteList").onchange = function () {
 };
 
 function mute() {
-    fetch('/api/BarkoF22/mute?id=' + parseURLId(location.href)).then(response => {
+    fetch('/api/BarcoF22/mute?id=' + parseURLId(location.href)).then(response => {
         if (response.ok) {
             response.json().then(e => console.log(e));
         }
@@ -34,7 +34,7 @@ function mute() {
 }
 
 function unMute() {
-    fetch('/api/BarkoF22/unMute?id=' + parseURLId(location.href)).then(response => {
+    fetch('/api/BarcoF22/unMute?id=' + parseURLId(location.href)).then(response => {
         if (response.ok) {
             response.json().then(e => console.log(e));
         }
@@ -46,7 +46,7 @@ document.getElementById("imageList").onchange = function () {
 }
 
 function testImage(image) {
-    fetch('/api/BarkoF22/testImage?id=' + parseURLId(location.href) + '&image=' + image).then(response => {
+    fetch('/api/BarcoF22/testImage?id=' + parseURLId(location.href) + '&image=' + image).then(response => {
         if (response.ok) {
             response.json().then(e => console.log(e));
         }
@@ -69,7 +69,7 @@ document.getElementById("power-list").onchange = function() {
 };
 
 function setContrast(number) {
-    fetch('/api/BarkoF22/setContrast?id=' + parseURLId(location.href) + '&value=' + number.value).then(response => {
+    fetch('/api/BarcoF22/setContrast?id=' + parseURLId(location.href) + '&value=' + number.value).then(response => {
         if (response.ok) {
             response.json().then(e => document.getElementById("contrast-value").innerHTML = e);
         }
@@ -77,7 +77,7 @@ function setContrast(number) {
 }
 
 function setBrightness(number) {
-    fetch('/api/BarkoF22/setBrightness?id=' + parseURLId(location.href) + '&value=' + number.value).then(response => {
+    fetch('/api/BarcoF22/setBrightness?id=' + parseURLId(location.href) + '&value=' + number.value).then(response => {
         if (response.ok) {
             response.json().then(e => document.getElementById("brightness-value").innerHTML = e);
         }
@@ -90,14 +90,14 @@ function setValue(element1, element2) {
 
 
 function updateData() {
-    fetch('/api/BarkoF22/getPower?id=' + parseURLId(location.href)).then(response => {
+    fetch('/api/BarcoF22/getPower?id=' + parseURLId(location.href)).then(response => {
         if (response.ok) {
             response.json().then(e => {
                 document.getElementById("power-state").value = e;
             });
         }
     });
-    fetch('/api/BarkoF22/getMute?id=' + parseURLId(location.href)).then(response => {
+    fetch('/api/BarcoF22/getMute?id=' + parseURLId(location.href)).then(response => {
         if (response.ok) {
             response.json().then(e => {
                 document.getElementById("mute-state").value = e;
@@ -107,7 +107,7 @@ function updateData() {
 
     //GET CONTRAST
 
-    fetch('/api/BarkoF22/getContrast?id=' + parseURLId(location.href)).then(response => {
+    fetch('/api/BarcoF22/getContrast?id=' + parseURLId(location.href)).then(response => {
         if (response.ok) {
             response.json().then(e => {
                 document.getElementById("contrast").value = e;
@@ -117,14 +117,14 @@ function updateData() {
     });
 
 //GET POWERSTATE
-    fetch('/api/BarkoF22/powerState?id=' + parseURLId(location.href)).then(response => {
+    fetch('/api/BarcoF22/powerState?id=' + parseURLId(location.href)).then(response => {
         if (response.ok) {
             response.json().then(e => document.getElementById("get-powerstate").innerHTML = e);
         }
     });
 
 //GET BRIGHTNESS
-    fetch('/api/BarkoF22/getBrightness?id=' + parseURLId(location.href)).then(response => {
+    fetch('/api/BarcoF22/getBrightness?id=' + parseURLId(location.href)).then(response => {
         if (response.ok) {
             response.json().then(e => {
                 document.getElementById("brightness").value = e;
@@ -132,7 +132,7 @@ function updateData() {
             });
         }
     });
-    fetch('/api/BarkoF22/getTestImage?id=' + parseURLId(location.href)).then(response => {
+    fetch('/api/BarcoF22/getTestImage?id=' + parseURLId(location.href)).then(response => {
         if (response.ok) {
             response.json().then(e => {
                 if (e === 0) {
@@ -145,28 +145,28 @@ function updateData() {
     });
 
 //GET TEMPERATURE
-    fetch('/api/BarkoF22/getThermal?id=' + parseURLId(location.href)).then(response => {
+    fetch('/api/BarcoF22/getThermal?id=' + parseURLId(location.href)).then(response => {
         if (response.ok) {
             response.json().then(e => document.getElementById("temperature").innerHTML = e);
         }
     });
 
 //GET PROJECTOR RUNTIME
-    fetch('/api/BarkoF22/getProjectorRuntime?id=' + parseURLId(location.href)).then(response => {
+    fetch('/api/BarcoF22/getProjectorRuntime?id=' + parseURLId(location.href)).then(response => {
         if (response.ok) {
             response.json().then(e => document.getElementById("projector-runtime").innerHTML = e);
         }
     });
 
 //GET LAMPRUNTIME 1
-    fetch('/api/BarkoF22/lampRuntime?id=' + parseURLId(location.href) + '&lampNum=1').then(response => {
+    fetch('/api/BarcoF22/lampRuntime?id=' + parseURLId(location.href) + '&lampNum=1').then(response => {
         if (response.ok) {
             response.json().then(e => document.getElementById("lamp1-runtime").innerHTML = e);
         }
     });
 
 //GET LAMPSTATUS 1
-    fetch('/api/BarkoF22/lampStatus?id=' + parseURLId(location.href) + '&lampNum=1').then(response => {
+    fetch('/api/BarcoF22/lampStatus?id=' + parseURLId(location.href) + '&lampNum=1').then(response => {
         if (response.ok) {
             response.json().then(e => document.getElementById("lamp1-status").innerHTML = e);
         }

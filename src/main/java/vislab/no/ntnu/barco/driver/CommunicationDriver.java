@@ -79,6 +79,11 @@ public class CommunicationDriver extends AbstractRunnable {
         if(issueCallback != null){
             issueCallback.onIssue();
         }
+        try {
+            host.close();
+        } catch (IOException e) {
+            return false;
+        }
         return super.stopThread();
     }
 }
