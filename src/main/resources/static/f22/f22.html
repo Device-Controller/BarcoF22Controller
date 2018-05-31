@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>BarkoF22 Projector</title>
     <meta charset="UTF-8">
@@ -16,7 +16,8 @@
 </script>
 <div class="table-container">
     <table class="display-table">
-        <image src="Images/projector.png" alt="projector image">
+        <tr><td colspan="3"> <img src="Images/projector.png" alt="projector image"/></td></tr>
+
             <tr class="header-row">
                 <td>Setting</td>
                 <td>Current Value</td>
@@ -34,7 +35,7 @@
             </tr>
             <tr>
                 <td>PowerState</td>
-                <td id="get-powerstate">Loading...</td>
+                <td colspan="2" id="get-powerstate">Loading...</td>
             </tr>
             <tr>
                 <td>Mute</td>
@@ -102,22 +103,22 @@
             </tr>
             <tr>
                 <td>Thermal</td>
-                <td id="temperature">Loading...</td>
+                <td colspan="2" id="temperature">Loading...</td>
             </tr>
             <tr>
                 <td>Projector Runtime</td>
-                <td id="projector-runtime">Loading...</td>
+                <td colspan="2" id="projector-runtime">Loading...</td>
             </tr>
             <tr>
                 <td>Lamp 1 Runtime</td>
-                <td id="lamp1-runtime">Loading...</td>
+                <td colspan="2" id="lamp1-runtime">Loading...</td>
             </tr>
             <tr>
                 <td>Lamp 1 Status</td>
-                <td id="lamp1-status">Loading...</td>
+                <td colspan="2" id="lamp1-status">Loading...</td>
             </tr>
     </table>
 </div>
-</body>
 <script src="/f22/f22.js"></script>
+</body>
 </html>
